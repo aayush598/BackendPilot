@@ -1,8 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Project Setup{% endblock %}
 {% block content %}
-<h2>Setup Your Project</h2>
-<form method="POST">
-    <!-- Fields for project name, description, stack, OS, etc. -->
-</form>
+<h2>Project Setup</h2>
+<button onclick="testAPI()">Create Project</button>
+<script>
+function testAPI() {
+    fetch('/api/create_project', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name: "TestProject"})
+    })
+    .then(res => res.json())
+    .then(data => alert(JSON.stringify(data, null, 2)));
+}
+</script>
 {% endblock %}

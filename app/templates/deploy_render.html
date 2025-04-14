@@ -1,8 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Deploy to Render{% endblock %}
 {% block content %}
 <h2>Deploy to Render</h2>
-<form method="POST">
-    <!-- Render deploy options -->
-</form>
+<button onclick="testAPI()">Deploy</button>
+<script>
+function testAPI() {
+    fetch('/api/deploy_render', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({project: "test"})
+    })
+    .then(res => res.json())
+    .then(data => alert(JSON.stringify(data, null, 2)));
+}
+</script>
 {% endblock %}

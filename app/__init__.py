@@ -6,8 +6,8 @@ def create_app():
     app.config.from_object(Config)
 
     # Blueprints
-    from app.routes import home_bp, api_bp
-    app.register_blueprint(home_bp)
-    app.register_blueprint(api_bp, url_prefix="/api")
+    from app.routes import home, api
+    app.register_blueprint(home)
+    app.register_blueprint(api, url_prefix="/api")
 
     return app

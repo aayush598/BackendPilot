@@ -1,6 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Error Handling{% endblock %}
 {% block content %}
-<h2>Fixing Errors</h2>
-<!-- Show errors and fix status -->
+<h2>Error Handling</h2>
+<button onclick="testAPI()">Fix Errors</button>
+<script>
+function testAPI() {
+    fetch('/api/fix_errors', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({errors: "some error"})
+    })
+    .then(res => res.json())
+    .then(data => alert(JSON.stringify(data, null, 2)));
+}
+</script>
 {% endblock %}

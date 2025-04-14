@@ -1,6 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Prompt Preview{% endblock %}
 {% block content %}
-<h2>Generated Prompts</h2>
-<!-- List editable prompts -->
+<h2>Prompt Preview</h2>
+<button onclick="testAPI()">Generate Prompts</button>
+<script>
+function testAPI() {
+    fetch('/api/generate_prompts', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({input: "Prompt Input"})
+    })
+    .then(res => res.json())
+    .then(data => alert(JSON.stringify(data, null, 2)));
+}
+</script>
 {% endblock %}

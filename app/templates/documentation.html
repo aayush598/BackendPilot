@@ -1,6 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Documentation{% endblock %}
 {% block content %}
-<h2>Project Documentation</h2>
-<!-- Show structured docs + export button -->
+<h2>Generate Documentation</h2>
+<button onclick="testAPI()">Generate Docs</button>
+<script>
+function testAPI() {
+    fetch('/api/generate_docs', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({project: "test"})
+    })
+    .then(res => res.json())
+    .then(data => alert(JSON.stringify(data, null, 2)));
+}
+</script>
 {% endblock %}

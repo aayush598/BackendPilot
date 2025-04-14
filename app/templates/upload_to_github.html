@@ -1,8 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Upload to GitHub{% endblock %}
 {% block content %}
 <h2>Upload to GitHub</h2>
-<form method="POST">
-    <!-- GitHub token, repo name -->
-</form>
+<button onclick="testAPI()">Upload</button>
+<script>
+function testAPI() {
+    fetch('/api/upload_github', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({repo: "test"})
+    })
+    .then(res => res.json())
+    .then(data => alert(JSON.stringify(data, null, 2)));
+}
+</script>
 {% endblock %}

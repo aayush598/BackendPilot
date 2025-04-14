@@ -1,6 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Code Preview{% endblock %}
 {% block content %}
 <h2>Code Preview</h2>
-<!-- Display files & code blocks -->
+<button onclick="testAPI()">Generate Code</button>
+<script>
+function testAPI() {
+    fetch('/api/generate_code', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({prompt: "Sample Prompt"})
+    })
+    .then(res => res.json())
+    .then(data => alert(JSON.stringify(data, null, 2)));
+}
+</script>
 {% endblock %}

@@ -1,8 +1,31 @@
 {% extends "base.html" %}
-{% block title %}One Step Mode{% endblock %}
 {% block content %}
-<h2>One-Click Backend Generation</h2>
-<form method="POST">
-    <!-- Project form and one-click submit -->
-</form>
+<h2>One-Step Mode</h2>
+<button onclick="runAll()">Run All Steps</button>
+<script>
+function runAll() {
+    const steps = [
+        '/api/create_project',
+        '/api/generate_prompts',
+        '/api/generate_code',
+        '/api/lint_code',
+        '/api/test_project',
+        '/api/fix_errors',
+        '/api/comment_code',
+        '/api/generate_docs',
+        '/api/zip_project',
+        '/api/upload_github',
+        '/api/deploy_render',
+    ];
+    steps.reduce((p, url) => {
+        return p.then(() =>
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ project: "all_in_one" })
+            }).then(res => res.json()).then(console.log)
+        );
+    }, Promise.resolve());
+}
+</script>
 {% endblock %}
