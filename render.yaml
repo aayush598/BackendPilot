@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: BackendPilot
+    env: python
+    buildCommand: ""
+    startCommand: "gunicorn run:app"
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: QROQ_API_KEY
+        value: YOUR_QROQ_API_KEY_HERE
