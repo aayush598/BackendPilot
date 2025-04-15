@@ -66,7 +66,7 @@ def lint_code():
 @api.route('/comment_code', methods=['POST'])
 def comment_code():
     data = request.json
-    result = commenter.add_comments(data)
+    result = commenter.comment_code_for_readability(data)
     return jsonify(result)
 
 @api.route('/generate_docs', methods=['POST'])

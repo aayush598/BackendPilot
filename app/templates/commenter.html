@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">💬 Code Commenter</h2>
+  <form id="commentForm">
+    <div class="mb-3">
+      <label for="codeInput" class="form-label">Paste your code below:</label>
+      <textarea class="form-control" id="codeInput" name="code" rows="12" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Generate Comments</button>
+  </form>
+
+  <div class="mt-4" id="resultSection" style="display: none;">
+    <h5>🧠 AI-Commented Code</h5>
+    <pre id="commentedCodeOutput" class="bg-light p-3 border rounded" style="white-space: pre-wrap;"></pre>
+  </div>
+</div>
+
+<script>
+document.getElementById('commentForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const code = document.getElementById('codeInput').value;
+
+  const response = await fetch('/api/comment_code', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code: code })
+  });
+
+  const result = await response.json();
+  const resultSection = document.getElementById('resultSection');
+  const output = document.getElementById('commentedCodeOutput');
+
+  if (result.success) {
+    resultSection.style.display = 'block';
+    output.textContent = result.commented_code;
+  } else {
+    resultSection.style.display = 'block';
+    output.textContent = `❌ Error:\n${result.error}`;
+  }
+});
+</script>
+{% endblock %}

@@ -25,6 +25,10 @@ def code_preview():
 def testing_linting():
     return render_template('testing_linting.html')
 
+@home.route('/commenter')
+def commenter():
+    return render_template('commenter.html')
+
 @home.route('/error_handling')
 def error_handling():
     return render_template('error_handling.html')
