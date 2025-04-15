@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from app.database.models import get_all_projects
 
 home = Blueprint('home', __name__)
 
@@ -34,8 +35,9 @@ def error_handling():
     return render_template('error_handling.html')
 
 @home.route('/documentation')
-def documentation():
-    return render_template('documentation.html')
+def documentation_page():
+    projects = get_all_projects()
+    return render_template("documentation.html", projects=projects)
 
 @home.route('/final_preview')
 def final_preview():

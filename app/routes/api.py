@@ -69,10 +69,14 @@ def comment_code():
     result = commenter.comment_code_for_readability(data)
     return jsonify(result)
 
-@api.route('/generate_docs', methods=['POST'])
-def generate_docs():
-    data = request.json
-    result = documentation.generate_documentation(data)
+@api.route('/generate_documentation', methods=['POST'])
+def generate_doc_api():
+    data = request.get_json()
+    project_name = data.get("project_name")
+    if not project_name:
+        return jsonify({"success": False, "error": "No project name provided."})
+
+    result = documentation.generate_documentation(project_name)
     return jsonify(result)
 
 @api.route('/zip_project', methods=['POST'])
