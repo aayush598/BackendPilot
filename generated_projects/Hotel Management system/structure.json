@@ -7,46 +7,39 @@
         "booking.py"
       ],
       "routes": [
-        "hotels.py",
-        "bookings.py"
+        "hotel_routes.py",
+        "booking_routes.py"
       ],
       "services": [
         "hotel_service.py",
         "booking_service.py"
       ],
+      "repositories": [
+        "hotel_repository.py",
+        "booking_repository.py"
+      ],
       "utils": [
-        "helper.py"
+        "hotel_utils.py",
+        "booking_utils.py"
       ],
       "__init__.py": []
     },
-    "config": [
-      "config.py"
-    ],
     "tests": {
       "unit": [
         "test_hotel.py",
         "test_booking.py"
       ],
       "integration": [
-        "test_hotel_booking.py"
+        "test_hotel_routes.py",
+        "test_booking_routes.py"
       ]
     },
+    "config": [
+      "config.py"
+    ],
     "requirements": [
       "requirements.txt"
     ],
-    "static": {
-      "css": [],
-      "js": []
-    },
-    "templates": {
-      "hotels": [
-        "index.html"
-      ],
-      "bookings": [
-        "index.html"
-      ]
-    },
-    "__init__.py": [],
     "run.py": []
   }
 }

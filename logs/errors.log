@@ -19,3 +19,8 @@
 2025-04-15 18:48:10,340 - ERROR - Unknown structure type for __init__.py: 
 2025-04-15 18:48:10,341 - ERROR - Unknown structure type for run.py: 
 2025-04-15 18:48:10,341 - ERROR - Unknown structure type for README.md: 
+2025-04-15 19:07:18,242 - ERROR - Project Scaffold Error: no such table: projects
+2025-04-15 19:07:36,068 - ERROR - Project Scaffold Error: no such table: projects
+2025-04-15 19:08:13,343 - ERROR - Unknown structure type for __init__.py: 
+2025-04-15 19:08:13,344 - ERROR - Unknown structure type for run.py: 
+2025-04-15 19:08:13,344 - ERROR - Project Scaffold Error: no such table: projects

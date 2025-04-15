@@ -4,6 +4,7 @@ import re
 from app.utils.logger import log_info, log_error
 from app.utils.qroq_api import generate_with_qroq
 from app.utils.file_helpers import write_file
+from app.database.models import insert_project_data
 
 def generate_project_structure(project_name: str, description: str) -> dict:
     try:
@@ -54,6 +55,10 @@ def generate_project_structure(project_name: str, description: str) -> dict:
         structure_path = os.path.join(base_folder, "structure.json")
         with open(structure_path, "w", encoding="utf-8") as f:
             json.dump(structure_data, f, indent=2)
+
+        # Store in database
+        folder_structure_str = json.dumps(structure_data.get("structure", {}), indent=2)
+        insert_project_data(project_name, description, folder_structure_str)
 
         log_info(f"Project structure saved at: {base_folder}")
         return {"success": True, "path": base_folder, "structure": structure_data}
