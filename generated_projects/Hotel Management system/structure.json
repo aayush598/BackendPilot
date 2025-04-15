@@ -1,0 +1,52 @@
+{
+  "project_root": "hotel_booking",
+  "structure": {
+    "app": {
+      "models": [
+        "hotel.py",
+        "booking.py"
+      ],
+      "routes": [
+        "hotels.py",
+        "bookings.py"
+      ],
+      "services": [
+        "hotel_service.py",
+        "booking_service.py"
+      ],
+      "utils": [
+        "helper.py"
+      ],
+      "__init__.py": []
+    },
+    "config": [
+      "config.py"
+    ],
+    "tests": {
+      "unit": [
+        "test_hotel.py",
+        "test_booking.py"
+      ],
+      "integration": [
+        "test_hotel_booking.py"
+      ]
+    },
+    "requirements": [
+      "requirements.txt"
+    ],
+    "static": {
+      "css": [],
+      "js": []
+    },
+    "templates": {
+      "hotels": [
+        "index.html"
+      ],
+      "bookings": [
+        "index.html"
+      ]
+    },
+    "__init__.py": [],
+    "run.py": []
+  }
+}

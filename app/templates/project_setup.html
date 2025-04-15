@@ -1,16 +1,52 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Project Setup</h2>
-<button onclick="testAPI()">Create Project</button>
+<div class="container mt-5">
+  <h2 class="mb-4">🛠 Project Setup</h2>
+  <form id="setupForm">
+    <div class="mb-3">
+      <label for="projectName" class="form-label">Project Name</label>
+      <input type="text" class="form-control" id="projectName" name="project_name" required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Project Description</label>
+      <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Folder Structure</button>
+  </form>
+
+  <div class="mt-4" id="output" style="display: none;">
+    <h5>✅ Result</h5>
+    <pre id="outputText" class="bg-light p-3 border rounded"></pre>
+  </div>
+</div>
+
 <script>
-function testAPI() {
-    fetch('/api/create_project', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name: "TestProject"})
-    })
-    .then(res => res.json())
-    .then(data => alert(JSON.stringify(data, null, 2)));
-}
+document.getElementById('setupForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const projectName = document.getElementById('projectName').value;
+  const description = document.getElementById('description').value;
+
+  const response = await fetch('/api/generate_structure', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ project_name: projectName, description: description })
+  });
+
+  const result = await response.json();
+  const output = document.getElementById('output');
+  const outputText = document.getElementById('outputText');
+
+  if (result.success) {
+    output.style.display = 'block';
+    // Format the structure nicely
+    const folderStructure = JSON.stringify(result.structure, null, 2); // Format with indentation
+    outputText.textContent = `Project folder created at:\n${result.path}\n\nFolder Structure:\n${folderStructure}`;
+  } else {
+    output.style.display = 'block';
+    outputText.textContent = `❌ Error:\n${result.error}`;
+  }
+});
 </script>
 {% endblock %}

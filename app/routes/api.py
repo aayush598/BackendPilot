@@ -21,6 +21,18 @@ def create_project():
     result = project_scaffold.create_project_structure(data)
     return jsonify(result)
 
+@api.route('/generate_structure', methods=['POST'])
+def generate_structure():
+    data = request.get_json()
+    project_name = data.get("project_name")
+    description = data.get("description")
+
+    if not project_name or not description:
+        return jsonify({"success": False, "error": "Missing project_name or description"}), 400
+
+    result = project_scaffold.generate_project_structure(project_name, description)
+    return jsonify(result)
+
 @api.route('/generate_prompts', methods=['POST'])
 def generate_prompts():
     data = request.json
