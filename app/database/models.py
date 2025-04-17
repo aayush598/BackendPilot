@@ -51,3 +51,12 @@ def get_all_projects():
     projects = cursor.fetchall()
     conn.close()
     return projects
+
+def get_project_by_name(project_name):
+    """Fetches a single project by name."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM projects WHERE project_name = ?", (project_name,))
+    project = cursor.fetchone()
+    conn.close()
+    return project

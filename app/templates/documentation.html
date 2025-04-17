@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<<<<<<< HEAD
 <style>
   .docs-container {
     max-width: 640px;
@@ -51,5 +52,52 @@
     .then(res => res.json())
     .then(data => alert(JSON.stringify(data, null, 2)));
   }
+=======
+<div class="container mt-5">
+  <h2 class="mb-4">📄 Documentation Generator</h2>
+  <form id="docForm">
+    <div class="mb-3">
+      <label for="projectSelect" class="form-label">Select Project</label>
+      <select class="form-select" id="projectSelect" name="project_name" required>
+        <option value="" disabled selected>Select a project</option>
+        {% for project in projects %}
+          <option value="{{ project.project_name }}">{{ project.project_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Documentation</button>
+  </form>
+
+  <div class="mt-4" id="docOutput" style="display: none;">
+    <h5>📘 Project Documentation</h5>
+    <pre id="docText" class="bg-light p-3 border rounded" style="white-space: pre-wrap;"></pre>
+  </div>
+</div>
+
+<script>
+document.getElementById('docForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const projectName = document.getElementById('projectSelect').value;
+
+  const response = await fetch('/api/generate_documentation', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ project_name: projectName })
+  });
+
+  const result = await response.json();
+  const docOutput = document.getElementById('docOutput');
+  const docText = document.getElementById('docText');
+
+  if (result.success) {
+    docOutput.style.display = 'block';
+    docText.textContent = result.documentation;
+  } else {
+    docOutput.style.display = 'block';
+    docText.textContent = `❌ Error:\n${result.error}`;
+  }
+});
+>>>>>>> 675d13f7fc2b68cd412f3650d7dfc2c76a622a8d
 </script>
 {% endblock %}
