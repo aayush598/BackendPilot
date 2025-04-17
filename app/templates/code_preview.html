@@ -1,16 +1,60 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Code Preview</h2>
-<button onclick="testAPI()">Generate Code</button>
+<style>
+  body {
+    background: linear-gradient(to right, #f0f2f5, #e0e7ff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .preview-container {
+    max-width: 600px;
+    margin: 5vh auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+
+  h2 {
+    color: #1e3a8a;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .btn-generate {
+    background-color: #4f46e5;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-generate:hover {
+    background-color: #4338ca;
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="preview-container">
+  <h2>🧪 Code Preview</h2>
+  <button class="btn-generate" onclick="testAPI()">⚙️ Generate Code</button>
+</div>
+
 <script>
-function testAPI() {
+  function testAPI() {
     fetch('/api/generate_code', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({prompt: "Sample Prompt"})
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({prompt: "Sample Prompt"})
     })
     .then(res => res.json())
     .then(data => alert(JSON.stringify(data, null, 2)));
-}
+  }
 </script>
 {% endblock %}

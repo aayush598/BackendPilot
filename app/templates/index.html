@@ -1,4 +1,49 @@
 {% extends "base.html" %}
+
 {% block content %}
-    <p>Welcome to BackendPilot. Choose a module to test.</p>
+<style>
+  .welcome-container {
+    max-width: 600px;
+    margin: 15vh auto;
+    background-color: #ffffff;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  p {
+    font-size: 1.5rem;
+    color: #4b5563; /* gray-600 */
+    margin-bottom: 2rem;
+  }
+
+  .btn-module {
+    background-color: #34d399; /* green-400 */
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    margin: 1rem;
+    display: inline-block;
+  }
+
+  .btn-module:hover {
+    background-color: #059669; /* green-600 */
+  }
+</style>
+
+<div class="welcome-container">
+  <p>Welcome to BackendPilot. Choose a module to test.</p>
+  <!-- Add links to modules here as buttons -->
+  <a href="/module1" class="btn-module">Module 1</a>
+  <a href="/module2" class="btn-module">Module 2</a>
+  <a href="/module3" class="btn-module">Module 3</a>
+  <!-- More modules can be added as necessary -->
+</div>
+
 {% endblock %}

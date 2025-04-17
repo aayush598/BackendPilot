@@ -1,7 +1,52 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Error Handling</h2>
-<button onclick="testAPI()">Fix Errors</button>
+<style>
+  .error-container {
+    max-width: 600px;
+    margin: 10vh auto;
+    background-color: #ffffff;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ef4444; /* red-500 */
+    margin-bottom: 1rem;
+  }
+
+  button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    margin-top: 2rem;
+  }
+
+  button:hover {
+    background-color: #2563eb; /* blue-600 */
+  }
+
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5); /* blue-400 */
+  }
+</style>
+
+<div class="error-container">
+  <h2>Error Handling</h2>
+  <button onclick="testAPI()">Fix Errors</button>
+</div>
+
 <script>
 function testAPI() {
     fetch('/api/fix_errors', {
@@ -10,7 +55,9 @@ function testAPI() {
         body: JSON.stringify({errors: "some error"})
     })
     .then(res => res.json())
-    .then(data => alert(JSON.stringify(data, null, 2)));
+    .then(data => alert(JSON.stringify(data, null, 2)))
+    .catch(err => alert("Error: " + err.message));
 }
 </script>
+
 {% endblock %}

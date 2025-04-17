@@ -1,16 +1,56 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Deploy to Render</h2>
-<button onclick="testAPI()">Deploy</button>
+<style>
+.deploy-container {
+  max-width: 600px;
+  margin: 5vh auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+h2 {
+  color: #047857;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.btn-deploy {
+  background-color: #10b981;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-deploy:hover {
+  background-color: #059669;
+  transform: scale(1.05);
+}
+
+</style>
+
+<div class="deploy-container">
+  <h2>🚀 Deploy to Render</h2>
+  <button class="btn-deploy" onclick="testAPI()">Deploy Now</button>
+</div>
+
 <script>
-function testAPI() {
+  function testAPI() {
     fetch('/api/deploy_render', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({project: "test"})
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({project: "test"})
     })
     .then(res => res.json())
     .then(data => alert(JSON.stringify(data, null, 2)));
-}
+  }
 </script>
 {% endblock %}

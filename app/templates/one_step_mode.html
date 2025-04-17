@@ -1,7 +1,60 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>One-Step Mode</h2>
-<button onclick="runAll()">Run All Steps</button>
+<style>
+  .container {
+    max-width: 800px;
+    margin: 10vh auto;
+    background-color: #ffffff;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #34d399; /* green-400 */
+    margin-bottom: 1.5rem;
+  }
+
+  button {
+    background-color: #3b82f6; /* blue-500 */
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #2563eb; /* blue-600 */
+  }
+
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5); /* blue-400 */
+  }
+
+  .status {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: #4b5563; /* gray-600 */
+  }
+</style>
+
+<div class="container">
+  <h2>One-Step Mode</h2>
+  <button onclick="runAll()">Run All Steps</button>
+  <div class="status">
+    <p>Click the button to run all steps in one go. This process will take some time depending on the tasks.</p>
+  </div>
+</div>
+
 <script>
 function runAll() {
     const steps = [
@@ -17,15 +70,31 @@ function runAll() {
         '/api/upload_github',
         '/api/deploy_render',
     ];
+    
+    const statusDiv = document.querySelector('.status');
+
+    // Show initial message
+    statusDiv.innerHTML = "<p>Running all steps... Please wait.</p>";
+    
     steps.reduce((p, url) => {
         return p.then(() =>
             fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ project: "all_in_one" })
-            }).then(res => res.json()).then(console.log)
+            }).then(res => res.json()).then(response => {
+                console.log(response);
+                statusDiv.innerHTML += `<p>Step completed: ${url}</p>`;
+            })
         );
-    }, Promise.resolve());
+    }, Promise.resolve())
+    .then(() => {
+        statusDiv.innerHTML += "<p>All steps completed successfully!</p>";
+    })
+    .catch(error => {
+        statusDiv.innerHTML += `<p>Error occurred: ${error.message}</p>`;
+    });
 }
 </script>
+
 {% endblock %}

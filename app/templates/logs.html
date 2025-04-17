@@ -1,5 +1,60 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>View Logs</h2>
-<p>Logs will be added soon.</p>
+<style>
+  .logs-container {
+    max-width: 800px;
+    margin: 10vh auto;
+    background-color: #ffffff;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #34d399; /* green-400 */
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #4b5563; /* gray-600 */
+    margin-bottom: 2rem;
+  }
+
+  .btn-refresh {
+    background-color: #3b82f6; /* blue-500 */
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .btn-refresh:hover {
+    background-color: #2563eb; /* blue-600 */
+  }
+
+  .logs-placeholder {
+    font-size: 1.1rem;
+    color: #9ca3af; /* gray-400 */
+    margin-top: 1.5rem;
+  }
+</style>
+
+<div class="logs-container">
+  <h2>View Logs</h2>
+  <p>Logs will be added soon.</p>
+  <button class="btn-refresh" onclick="window.location.reload()">Refresh Logs</button>
+  <div class="logs-placeholder">
+    <p>Currently no logs are available. Please check back later.</p>
+  </div>
+</div>
+
 {% endblock %}

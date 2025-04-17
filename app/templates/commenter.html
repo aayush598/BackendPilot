@@ -1,45 +1,208 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-  <h2 class="mb-4">💬 Code Commenter</h2>
-  <form id="commentForm">
-    <div class="mb-3">
-      <label for="codeInput" class="form-label">Paste your code below:</label>
-      <textarea class="form-control" id="codeInput" name="code" rows="12" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-success">Generate Comments</button>
-  </form>
+<style>
+  body {
+    background: linear-gradient(to right, #f0f2f5, #e0e7ff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-  <div class="mt-4" id="resultSection" style="display: none;">
-    <h5>🧠 AI-Commented Code</h5>
-    <pre id="commentedCodeOutput" class="bg-light p-3 border rounded" style="white-space: pre-wrap;"></pre>
+  .chat-container {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    height: 85vh;
+    margin: 3vh auto;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chat-header {
+    background: linear-gradient(to right, #4f46e5, #3b82f6);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    overflow-y: auto;
+    background-color: #f9fafb;
+  }
+
+  .chat-message {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-msg {
+    align-items: flex-end;
+  }
+
+  .bot-msg {
+    align-items: flex-start;
+  }
+
+  .bubble {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    max-width: 80%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+  }
+
+  .user-msg .bubble {
+    background: #dbeafe;
+    color: #1e3a8a;
+    border-bottom-right-radius: 4px;
+  }
+
+  .bot-msg .bubble {
+    background: #e2e8f0;
+    color: #1a202c;
+    border-bottom-left-radius: 4px;
+  }
+
+  .chat-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    background-color: #fff;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .chat-footer textarea {
+  flex: 1;
+  resize: none;
+  padding: 0.5rem 0.75rem; /* ↓ Reduced padding */
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-family: monospace;
+  font-size: 14px;
+  background-color: #f8fafc;
+  transition: border-color 0.2s ease;
+  height: 40px; /* ↓ Fixed height */
+  line-height: 1.2;
+}
+
+
+  .chat-footer textarea:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3);
+  }
+
+  .btn-send {
+  background-color: #4f46e5;
+  color: white;
+  padding: 0.5rem 0.9rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+  height: 40px;
+  width: 40px;
+}
+
+.btn-send:hover {
+  background-color: #4338ca;
+  transform: scale(1.05);
+}
+
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+</style>
+
+
+<div class="chat-container">
+  <div class="chat-header">💬 Code Commenter</div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-footer">
+    <textarea id="codeInput" placeholder="Paste your code..." rows="1"></textarea>
+
+    <button class="btn-send" onclick="sendMessage()" title="Send">
+      ➤
+    </button>
+    
   </div>
 </div>
 
 <script>
-document.getElementById('commentForm').addEventListener('submit', async function (e) {
-  e.preventDefault();
+  const chatBody = document.getElementById('chatBody');
+  const codeInput = document.getElementById('codeInput');
 
-  const code = document.getElementById('codeInput').value;
+  function addMessage(message, sender = 'user') {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('chat-message', sender === 'user' ? 'user-msg' : 'bot-msg');
 
-  const response = await fetch('/api/comment_code', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ code: code })
-  });
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    bubble.textContent = message;
 
-  const result = await response.json();
-  const resultSection = document.getElementById('resultSection');
-  const output = document.getElementById('commentedCodeOutput');
-
-  if (result.success) {
-    resultSection.style.display = 'block';
-    output.textContent = result.commented_code;
-  } else {
-    resultSection.style.display = 'block';
-    output.textContent = `❌ Error:\n${result.error}`;
+    msgDiv.appendChild(bubble);
+    chatBody.appendChild(msgDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
   }
-});
+
+  async function sendMessage() {
+    const code = codeInput.value.trim();
+    if (!code) return;
+
+    addMessage(code, 'user');
+    codeInput.value = '';
+    addMessage('✍️ Thinking...', 'bot');
+
+    const response = await fetch('/api/comment_code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
+    });
+
+    const result = await response.json();
+    const allBotMsgs = chatBody.querySelectorAll('.bot-msg .bubble');
+    const lastBotBubble = allBotMsgs[allBotMsgs.length - 1];
+
+    if (result.success) {
+      lastBotBubble.textContent = result.commented_code;
+    } else {
+      lastBotBubble.textContent = `❌ Error:\n${result.error}`;
+    }
+
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  codeInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
 </script>
 {% endblock %}
