@@ -2,99 +2,177 @@
 
 {% block content %}
 <style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+  }
+
   .container {
-    max-width: 800px;
-    margin: 10vh auto;
+    max-width: 650px;
+    margin: 5vh auto;
     background-color: #ffffff;
-    padding: 2rem 2.5rem;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
 
   h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: #34d399; /* green-400 */
+    color: #34d399;
+    text-align: center;
     margin-bottom: 1.5rem;
   }
 
-  button {
-    background-color: #3b82f6; /* blue-500 */
+  .form-label {
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #3b82f6;
+    outline: none;
+    background-color: #ffffff;
+  }
+
+  .btn-primary {
+    background-color: #3b82f6;
+    border: none;
     color: white;
     padding: 0.8rem 1.5rem;
-    font-size: 18px;
-    border: none;
+    font-size: 1.1rem;
     border-radius: 8px;
     font-weight: 600;
-    text-decoration: none;
-    transition: background 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 
-  button:hover {
-    background-color: #2563eb; /* blue-600 */
+  .btn-primary:hover {
+    background-color: #2563eb;
   }
 
-  button:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5); /* blue-400 */
-  }
-
-  .status {
+  .output-container {
+    display: none;
     margin-top: 2rem;
+    background-color: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .output-container h5 {
+    font-size: 1.4rem;
+    color: #34d399;
+    margin-bottom: 1rem;
+  }
+
+  .output-text {
+    background-color: #f3f4f6;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
     font-size: 1.1rem;
-    color: #4b5563; /* gray-600 */
+    color: #333;
+  }
+
+  .error-message {
+    color: #ef4444;
+    font-weight: 600;
+  }
+
+  .mb-3 {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
+      width: 90%;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+    }
+
+    .btn-primary {
+      font-size: 1rem;
+    }
   }
 </style>
 
 <div class="container">
-  <h2>One-Step Mode</h2>
-  <button onclick="runAll()">Run All Steps</button>
-  <div class="status">
-    <p>Click the button to run all steps in one go. This process will take some time depending on the tasks.</p>
-  </div>
+  <h2>🛠 Project Setup & ZIP Download</h2>
+  <!-- Form to generate project folder structure -->
+  <form id="setupForm">
+    <div class="mb-3">
+      <label for="projectName" class="form-label">Project Name</label>
+      <input type="text" class="form-control" id="projectName" name="project_name" required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Project Description</label>
+      <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Folder Structure</button>
+  </form>
+
+  <!-- Display output after generating folder structure -->
+  <div class="output-container" id="output">
+    <h5>✅ Result</h5>
+    <pre id="outputText" class="output-text"></pre>
+    <a id="downloadLink" class="btn btn-primary" href="" style="display: none;" download>Download ZIP</a>
+</div>
 </div>
 
 <script>
-function runAll() {
-    const steps = [
-        '/api/create_project',
-        '/api/generate_prompts',
-        '/api/generate_code',
-        '/api/lint_code',
-        '/api/test_project',
-        '/api/fix_errors',
-        '/api/comment_code',
-        '/api/generate_docs',
-        '/api/zip_project',
-        '/api/upload_github',
-        '/api/deploy_render',
-    ];
-    
-    const statusDiv = document.querySelector('.status');
-
-    // Show initial message
-    statusDiv.innerHTML = "<p>Running all steps... Please wait.</p>";
-    
-    steps.reduce((p, url) => {
-        return p.then(() =>
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ project: "all_in_one" })
-            }).then(res => res.json()).then(response => {
-                console.log(response);
-                statusDiv.innerHTML += `<p>Step completed: ${url}</p>`;
-            })
-        );
-    }, Promise.resolve())
-    .then(() => {
-        statusDiv.innerHTML += "<p>All steps completed successfully!</p>";
-    })
-    .catch(error => {
-        statusDiv.innerHTML += `<p>Error occurred: ${error.message}</p>`;
+  document.getElementById('setupForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+  
+    const projectName = document.getElementById('projectName').value;
+    const description = document.getElementById('description').value;
+  
+    const response = await fetch('/api/generate_structure', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ project_name: projectName, description: description })
     });
-}
-</script>
+  
+    const result = await response.json();
+    const output = document.getElementById('output');
+    const outputText = document.getElementById('outputText');
+    const downloadLink = document.getElementById('downloadLink');
+  
+    if (result.success) {
+      output.style.display = 'block';
+      const folderStructure = JSON.stringify(result.structure, null, 2);
+      outputText.textContent = `Project folder created at:\n${result.path}\n\nFolder Structure:\n${folderStructure}`;
+      
+      // Set the download link dynamically
+      downloadLink.href = result.download_link;
+      downloadLink.style.display = 'inline-block';
+    } else {
+      output.style.display = 'block';
+      outputText.classList.add('error-message');
+      outputText.textContent = `❌ Error:\n${result.error}`;
+    }
+  });
+  </script>
 
 {% endblock %}

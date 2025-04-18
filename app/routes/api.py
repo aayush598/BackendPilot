@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, send_from_directory
 from app.services import (
     project_scaffold,
     prompt_generator,
@@ -11,8 +11,10 @@ from app.services import (
     zipping,
     github_uploader,
     render_deployer,
+    one_step_solution,
 )
 import os
+import urllib.parse
 
 api = Blueprint('api', __name__, url_prefix="/api")
 
@@ -84,8 +86,22 @@ def generate_doc_api():
 def zip_project():
     data = request.json
     result = zipping.zip_project(data)
-    return jsonify(result)
+    if result.get("status") == "success":
+        return jsonify({"success": True, "zip_path": result["zip_path"], "message": "Project zipped successfully"})
+    else:
+        return jsonify({"success": False, "message": "Failed to zip the project"}), 500
 
+
+@api.route('/api/download/<path:filename>', methods=['GET'])
+def download(filename):
+    # URL encode the filename to handle spaces and special characters
+    encoded_filename = urllib.parse.quote(filename)
+    directory = '/home/ayush/Aayush/Projects/BackendPilot/generated_zips'  # Adjust this path as per your requirement
+    try:
+        return send_from_directory(directory, encoded_filename, as_attachment=True)
+    except FileNotFoundError:
+        return jsonify({"success": False, "message": "File not found"}), 404
+  
 @api.route('/get_projects', methods=['GET'])
 def get_projects():
     projects = zipping.fetch_projects_from_db()
@@ -137,3 +153,9 @@ def deploy_render():
 
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+
+@api.route('/one_step_solution', methods=['POST'])
+def one_step_solution_api():
+    data = request.json
+    result = one_step_solution.one_step_solution(data)
+    return jsonify(result)
