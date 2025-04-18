@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - AI Backend Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-section {
+            max-width: 1200px;
+            margin: 8rem auto 4rem;
+            padding: 2rem;
+        }
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .about-card h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .team-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">AI Backend Generator</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="about.html" class="active">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="auth-btn">Login</a>
+        </div>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <main class="about-section">
+        <div class="about-hero">
+            <h1>About Our Mission</h1>
+            <p>Revolutionizing backend development through AI-powered automation</p>
+        </div>
+
+        <div class="about-content">
+            <div class="about-card">
+                <h2>Our Vision</h2>
+                <p>We envision a future where developers can focus on innovation while AI handles the repetitive aspects of backend development. Our platform bridges the gap between ideas and implementation, making backend development accessible to everyone.</p>
+            </div>
+            <div class="about-card">
+                <h2>Our Approach</h2>
+                <p>By combining cutting-edge AI technology with best practices in software development, we've created a tool that understands your requirements and generates production-ready backend code. Our system learns and evolves with each project.</p>
+            </div>
+            <div class="about-card">
+                <h2>Why Choose Us</h2>
+                <p>Our platform offers unmatched flexibility, robust error handling, and comprehensive documentation generation. We're committed to maintaining high standards of code quality while significantly reducing development time.</p>
+            </div>
+        </div>
+
+        <div class="team-section">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg" alt="Team member">
+                    <h3>Sarah Johnson</h3>
+                    <p>Lead AI Engineer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg" alt="Team member">
+                    <h3>Michael Chen</h3>
+                    <p>Backend Architect</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.pexels.com/photos/2379006/pexels-photo-2379006.jpeg" alt="Team member">
+                    <h3>Emily Rodriguez</h3>
+                    <p>Product Manager</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AI Backend Generator. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

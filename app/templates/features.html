@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - AI Backend Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .features-section {
+            max-width: 1200px;
+            margin: 8rem auto 4rem;
+            padding: 2rem;
+        }
+
+        .features-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-item h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-item li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-item li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .demo-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .demo-video {
+            margin-top: 2rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .cta-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">AI Backend Generator</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html" class="active">Features</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="auth-btn">Login</a>
+        </div>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <main class="features-section">
+        <div class="features-hero">
+            <h1>Powerful Features</h1>
+            <p>Discover how our AI-powered platform revolutionizes backend development</p>
+        </div>
+
+        <div class="feature-list">
+            <div class="feature-item">
+                <h2>One-Step Solution</h2>
+                <ul>
+                    <li>Instant project generation</li>
+                    <li>Complete folder structure</li>
+                    <li>Automated dependency management</li>
+                    <li>Configuration file setup</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h2>Step-by-Step Mode</h2>
+                <ul>
+                    <li>Incremental development</li>
+                    <li>Review each phase</li>
+                    <li>Customization options</li>
+                    <li>Progress tracking</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h2>Intelligent Error Handling</h2>
+                <ul>
+                    <li>Automated error detection</li>
+                    <li>Smart error correction</li>
+                    <li>Configurable retry limits</li>
+                    <li>Manual override options</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h2>Documentation & Testing</h2>
+                <ul>
+                    <li>Automated code comments</li>
+                    <li>PDF documentation</li>
+                    <li>Unit test generation</li>
+                    <li>Code quality checks</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h2>Deployment Ready</h2>
+                <ul>
+                    <li>GitHub integration</li>
+                    <li>Render deployment</li>
+                    <li>Environment setup</li>
+                    <li>Security best practices</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h2>Tech Stack Support</h2>
+                <ul>
+                    <li>Flask framework</li>
+                    <li>Cross-platform compatibility</li>
+                    <li>Modern architecture</li>
+                    <li>Scalable design</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>See It In Action</h2>
+            <div class="demo-video">
+                <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Demo screenshot" style="max-width: 100%; border-radius: 0.5rem;">
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Get Started?</h2>
+            <p>Transform your backend development process today</p>
+            <a href="login.html" class="cta-button">Try It Now</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AI Backend Generator. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
