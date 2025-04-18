@@ -113,9 +113,27 @@ def upload_github():
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
-
 @api.route('/deploy_render', methods=['POST'])
 def deploy_render():
-    data = "data"
-    result = render_deployer.deploy_to_render(data)
-    return jsonify(result)
+    try:
+        data = request.json
+        github_repo_url = data.get('github_repo_url')
+        service_name = data.get('service_name')
+        workspace_name = data.get('workspace_name')
+        workspace_email = data.get('workspace_email')
+        render_api_key = data.get('render_api_key')
+
+        if not github_repo_url or not service_name or not workspace_name or not workspace_email or not render_api_key:
+            return jsonify({"success": False, "message": "Missing required fields."}), 400
+
+        result = render_deployer.deploy_to_render(
+            github_repo_url,
+            service_name,
+            workspace_name,
+            workspace_email,
+            render_api_key
+        )
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500

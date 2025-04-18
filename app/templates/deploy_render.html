@@ -18,6 +18,14 @@ h2 {
   margin-bottom: 2rem;
 }
 
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
 .btn-deploy {
   background-color: #10b981;
   color: white;
@@ -35,22 +43,75 @@ h2 {
   transform: scale(1.05);
 }
 
+.alert {
+  margin-top: 20px;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.alert-success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
 </style>
 
 <div class="deploy-container">
-  <h2>🚀 Deploy to Render</h2>
-  <button class="btn-deploy" onclick="testAPI()">Deploy Now</button>
+  <h2>🚀 Deploy Your Project to Render</h2>
+
+  <form id="deployForm">
+    <input type="url" id="githubRepoUrl" placeholder="GitHub Repository URL" required>
+    <input type="text" id="serviceName" placeholder="Service Name" required>
+    <input type="text" id="workspaceName" placeholder="Workspace Name" required>
+    <input type="email" id="workspaceEmail" placeholder="Workspace Email" required>
+    <input type="password" id="renderApiKey" placeholder="Render API Key" required>
+
+    <button type="submit" class="btn-deploy">Deploy Now</button>
+</form>
+
+
+  <div id="result"></div>
 </div>
 
 <script>
-  function testAPI() {
+
+document.getElementById('deployForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const githubRepoUrl = document.getElementById('githubRepoUrl').value;
+    const serviceName = document.getElementById('serviceName').value;
+    const workspaceName = document.getElementById('workspaceName').value;
+    const workspaceEmail = document.getElementById('workspaceEmail').value;
+    const renderApiKey = document.getElementById('renderApiKey').value;
+
     fetch('/api/deploy_render', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({project: "test"})
+      body: JSON.stringify({
+        github_repo_url: githubRepoUrl,
+        service_name: serviceName,
+        workspace_name: workspaceName,
+        workspace_email: workspaceEmail,
+        render_api_key: renderApiKey
+      })
     })
     .then(res => res.json())
-    .then(data => alert(JSON.stringify(data, null, 2)));
-  }
+    .then(data => {
+      const resultDiv = document.getElementById('result');
+      if (data.success) {
+        resultDiv.innerHTML = `<div class="alert alert-success">✅ ${data.message}</div>`;
+      } else {
+        resultDiv.innerHTML = `<div class="alert alert-error">❌ ${data.message || "Something went wrong."}</div>`;
+      }
+    })
+    .catch(error => {
+      document.getElementById('result').innerHTML = `<div class="alert alert-error">❌ Error: ${error}</div>`;
+    });
+});
+
 </script>
 {% endblock %}
