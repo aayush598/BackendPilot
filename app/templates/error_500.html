@@ -1,50 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>
-  .error-container {
-    max-width: 600px;
-    margin: 10vh auto;
-    background-color: #ffffff;
-    padding: 2rem 2.5rem;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  }
+  <style>
+    .error-container {
+      max-width: 600px;
+      margin: 10vh auto;
+      background-color: #ffffff;
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
 
-  h2 {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #ef4444; /* red-500 */
-    margin-bottom: 1rem;
-  }
+    h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ef4444; /* red-500 */
+      margin-bottom: 1rem;
+    }
 
-  p {
-    font-size: 1.2rem;
-    color: #4b5563; /* gray-600 */
-    margin-bottom: 2rem;
-  }
+    p {
+      font-size: 1.2rem;
+      color: #4b5563; /* gray-600 */
+      margin-bottom: 2rem;
+    }
 
-  .btn-home {
-    background-color: #3b82f6;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.3s ease;
-  }
+    .btn-home {
+      background-color: #3b82f6;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
 
-  .btn-home:hover {
-    background-color: #2563eb;
-  }
-</style>
+    .btn-home:hover {
+      background-color: #2563eb;
+    }
+  </style>
 
-<div class="error-container">
-  <h2>Error 500</h2>
-  <p>Internal server error. Something went wrong on our end. Please try again later.</p>
-  <a href="/" class="btn-home">← Go back home</a>
-</div>
+  <div class="error-container">
+    <h2>Error 500</h2>
+    <p>Internal server error. Something went wrong on our end. Please try again later.</p>
+    <a href="/" class="btn-home">← Go back home</a>
+  </div>
 {% endblock %}
