@@ -85,6 +85,7 @@ def zip_project():
     result = zipping.zip_project(data)
     return jsonify(result)
 
+
 @api.route('/upload_github', methods=['POST'])
 def upload_github():
     data = request.json

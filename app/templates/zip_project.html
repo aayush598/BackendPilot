@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>📦 Generate & Download Project ZIP</h2>
+  <form method="POST" action="/zip_project">
+    <div class="mb-3">
+      <label for="projectSelect" class="form-label">Select Project</label>
+      <select class="form-select" id="projectSelect" name="project_name" required>
+        {% for project in projects %}
+          <option value="{{ project }}">{{ project }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate ZIP</button>
+  </form>
+</div>
+{% endblock %}

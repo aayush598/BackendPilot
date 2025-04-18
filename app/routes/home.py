@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, send_file
 from app.database.models import get_all_projects
+from app.services import zipping
 
 home = Blueprint('home', __name__)
 
@@ -62,6 +63,21 @@ def step_by_step_mode():
 @home.route('/one_step_mode')
 def one_step_mode():
     return render_template('one_step_mode.html')
+
+@home.route('/zip_project', methods=['GET', 'POST'])
+def zip_project_page():
+    if request.method == 'GET':
+        projects = zipping.fetch_projects_from_db()
+        return render_template('zip_project.html', projects=projects)
+
+    if request.method == 'POST':
+        project_name = request.form.get('project_name')
+        result = zipping.zip_project({"project_name": project_name})
+
+        if result['status'] == 'success':
+            return send_file(result['zip_path'], as_attachment=True)
+
+        return jsonify(result), 400
 
 # Error pages
 @home.app_errorhandler(404)
