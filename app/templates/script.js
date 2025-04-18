@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('userEmail');
-            window.location.href = 'home.html';
+            window.location.href = 'index.html';
         });
     }
 });
