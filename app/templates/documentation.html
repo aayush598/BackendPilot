@@ -1,58 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<<<<<<< HEAD
-<style>
-  .docs-container {
-    max-width: 640px;
-    margin: 5vh auto;
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    text-align: center;
-  }
-
-  h2 {
-    color: #1e40af;
-    font-weight: 600;
-    margin-bottom: 2rem;
-  }
-
-  .btn-docs {
-    background-color: #2563eb;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    font-size: 16px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-
-  .btn-docs:hover {
-    background-color: #1d4ed8;
-    transform: scale(1.05);
-  }
-</style>
-
-<div class="docs-container">
-  <h2>📚 Generate Documentation</h2>
-  <button class="btn-docs" onclick="testAPI()">Generate Docs</button>
-</div>
-
-<script>
-  function testAPI() {
-    fetch('/api/generate_docs', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({project: "test"})
-    })
-    .then(res => res.json())
-    .then(data => alert(JSON.stringify(data, null, 2)));
-  }
-=======
 <div class="container mt-5">
   <h2 class="mb-4">📄 Documentation Generator</h2>
   <form id="docForm">
@@ -98,6 +46,5 @@ document.getElementById('docForm').addEventListener('submit', async function (e)
     docText.textContent = `❌ Error:\n${result.error}`;
   }
 });
->>>>>>> 675d13f7fc2b68cd412f3650d7dfc2c76a622a8d
 </script>
 {% endblock %}
