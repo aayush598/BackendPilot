@@ -8,6 +8,26 @@ home = Blueprint('home', __name__)
 def index():
     return render_template('index.html')
 
+@home.route('/about')
+def about():
+    return render_template('about.html')
+
+@home.route('/features')
+def features():
+    return render_template('features.html')
+
+@home.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@home.route('/login')
+def login():
+    return render_template('login.html')
+
+@home.route('/signin')
+def signin():
+    return render_template('signin.html')
+
 @home.route('/project_setup', methods=['GET', 'POST'])
 def project_setup():
     if request.method == 'POST':
