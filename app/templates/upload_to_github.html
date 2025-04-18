@@ -19,6 +19,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="githubUsername" class="form-label">GitHub Username</label>
+            <input type="text" class="form-control" id="githubUsername" name="github_username" placeholder="Enter your GitHub Username" required>
+        </div>
+
+        <div class="mb-3">
             <label for="repoName" class="form-label">Repository Name</label>
             <input type="text" class="form-control" id="repoName" name="repo_name" placeholder="Enter GitHub Repository Name" required>
         </div>
@@ -56,6 +61,7 @@
 
         const formData = {
             project_name: document.getElementById('projectName').value,
+            github_username: document.getElementById('githubUsername').value,  // Get username
             repo_name: document.getElementById('repoName').value,
             github_token: document.getElementById('githubToken').value,
         };

@@ -100,6 +100,11 @@ def upload_github():
         if not project_name:
             return jsonify({"success": False, "message": "Project name missing."}), 400
 
+        # Get the GitHub username from the input
+        github_username = data.get('github_username')
+        if not github_username:
+            return jsonify({"success": False, "message": "GitHub username missing."}), 400
+
         project_path = os.path.join('generated_projects', project_name)
 
         result = github_uploader.upload_to_github(project_path, data)
@@ -107,7 +112,6 @@ def upload_github():
 
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
-
 
 
 @api.route('/deploy_render', methods=['POST'])

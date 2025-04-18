@@ -7,9 +7,10 @@ BASE_PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 def upload_to_github(project_path, data):
     repo_name = data.get('repo_name')
     github_token = data.get('github_token')
+    github_username = data.get('github_username')  # Get the username
 
-    if not repo_name or not github_token:
-        return {"success": False, "message": "Missing repo name or GitHub token."}
+    if not repo_name or not github_token or not github_username:
+        return {"success": False, "message": "Missing repo name, GitHub token, or GitHub username."}
 
     # Make full absolute path for the project
     full_project_path = os.path.join(BASE_PROJECT_DIR, project_path)
@@ -33,8 +34,8 @@ def upload_to_github(project_path, data):
         # Remove the existing remote 'origin' if it exists
         subprocess.run(["git", "remote", "remove", "origin"], check=True)
 
-        # Add the new remote URL with the provided GitHub token
-        repo_url = f"https://{github_token}@github.com/aayush598/{repo_name}.git"
+        # Add the new remote URL with the provided GitHub token and username
+        repo_url = f"https://{github_token}@github.com/{github_username}/{repo_name}.git"
         subprocess.run(["git", "remote", "add", "origin", repo_url], check=True)
 
         subprocess.run(["git", "branch", "-M", "main"], check=True)
