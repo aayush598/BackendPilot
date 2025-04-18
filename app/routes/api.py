@@ -12,6 +12,7 @@ from app.services import (
     github_uploader,
     render_deployer,
 )
+import os
 
 api = Blueprint('api', __name__, url_prefix="/api")
 
@@ -85,13 +86,29 @@ def zip_project():
     result = zipping.zip_project(data)
     return jsonify(result)
 
+@api.route('/get_projects', methods=['GET'])
+def get_projects():
+    projects = zipping.fetch_projects_from_db()
+    return jsonify({"projects": projects})
+
 
 @api.route('/upload_github', methods=['POST'])
 def upload_github():
-    data = request.json
-    project_path="project_path"
-    result = github_uploader.upload_to_github(project_path,data)
-    return jsonify(result)
+    try:
+        data = request.json
+        project_name = data.get('project_name')
+        if not project_name:
+            return jsonify({"success": False, "message": "Project name missing."}), 400
+
+        project_path = os.path.join('generated_projects', project_name)
+
+        result = github_uploader.upload_to_github(project_path, data)
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+
 
 @api.route('/deploy_render', methods=['POST'])
 def deploy_render():

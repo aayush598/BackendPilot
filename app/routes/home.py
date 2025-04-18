@@ -44,8 +44,8 @@ def documentation_page():
 def final_preview():
     return render_template('final_preview.html')
 
-@home.route('/upload_to_github')
-def upload_to_github():
+@home.route('/upload_github')
+def upload_github_page():
     return render_template('upload_to_github.html')
 
 @home.route('/deploy_render')

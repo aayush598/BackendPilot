@@ -1,16 +1,86 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Upload to GitHub</h2>
-<button onclick="testAPI()">Upload</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Project to GitHub</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light p-5">
+
+<div class="container">
+    <h1 class="mb-4">Upload Project to GitHub</h1>
+
+    <form id="uploadForm">
+        <div class="mb-3">
+            <label for="projectName" class="form-label">Select Project</label>
+            <select class="form-select" id="projectName" name="project_name" required>
+                <!-- Options will be dynamically populated from backend -->
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="repoName" class="form-label">Repository Name</label>
+            <input type="text" class="form-control" id="repoName" name="repo_name" placeholder="Enter GitHub Repository Name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="githubToken" class="form-label">GitHub Personal Access Token</label>
+            <input type="password" class="form-control" id="githubToken" name="github_token" placeholder="Enter your GitHub Token" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload to GitHub</button>
+    </form>
+
+    <div id="result" class="mt-4"></div>
+</div>
+
 <script>
-function testAPI() {
-    fetch('/api/upload_github', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({repo: "test"})
-    })
-    .then(res => res.json())
-    .then(data => alert(JSON.stringify(data, null, 2)));
-}
+    // Fetch project list from backend
+    window.onload = function() {
+        fetch('/api/get_projects')  // <-- new API we will create
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('projectName');
+                data.projects.forEach(project => {
+                    const option = document.createElement('option');
+                    option.value = project;
+                    option.text = project;
+                    select.appendChild(option);
+                });
+            });
+    };
+
+    // Handle form submit
+    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = {
+            project_name: document.getElementById('projectName').value,
+            repo_name: document.getElementById('repoName').value,
+            github_token: document.getElementById('githubToken').value,
+        };
+
+        fetch('/api/upload_github', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('result');
+            if (data.success) {
+                resultDiv.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+            } else {
+                resultDiv.innerHTML = `<div class="alert alert-danger">${data.message || "Something went wrong."}</div>`;
+            }
+        })
+        .catch(error => {
+            document.getElementById('result').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
+        });
+    });
 </script>
-{% endblock %}
+
+</body>
+</html>
