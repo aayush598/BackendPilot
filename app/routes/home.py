@@ -28,6 +28,10 @@ def login():
 def signin():
     return render_template('signin.html')
 
+@home.route('/signup')
+def signin():
+    return render_template('signup.html')
+
 @home.route('/project_setup', methods=['GET', 'POST'])
 def project_setup():
     if request.method == 'POST':
