@@ -18,38 +18,29 @@ Design an AI-powered agent capable of generating complete backend code based on 
 
 ## 🎯 Objective
 
-AI Agent for Automated Backend Code Generation
-Design an AI-powered agent capable of generating complete backend code based on user-provided inputs. The agent must accept a natural language description of the project, user-specified backend tech stack (initially supporting only Flask), the operating system (Windows, Linux/Ubuntu, or macOS), and the desired folder path for project setup.
+I Agent for Automated Backend Code Generation
 
-The system should offer two modes of operation:
+The AI agent generates complete backend code based on user inputs, including project description, tech stack (initially Flask), OS (Windows, Linux/Ubuntu, macOS), and folder path. It offers two modes:
 
-One-Step Solution – Generates the entire backend project in one go.
+One-Step Solution: Generates the entire project at once.
 
-Step-by-Step Solution – Builds the project incrementally, allowing the user to review and modify each step.
+Step-by-Step Solution: Builds the project incrementally for user review and modification.
 
-Once inputs are collected, the agent should:
+The agent:
 
-Generate the folder structure.
+- Creates the folder structure, setup files, and code using AI (Qroq).
 
-Create setup files and generate prompts for code generation using an AI LLM (Qroq).
+- Generates main and test files, validates them with automated testing and linting.
 
-Create main and test code files, validate them through automated testing and linting.
+- Handles errors with retries and notifies the user for manual corrections if needed.
 
-Handle errors intelligently by re-prompting the LLM up to a user-defined retry limit.
+- Comments the code, creates detailed documentation in PDF, and offers the code for download as a ZIP.
 
-If errors persist, notify the user for manual correction.
+-Optionally uploads to GitHub and deploys to Render.
 
-Upon successful generation, the agent should:
+The system aims to streamline backend development with intelligent automation, error recovery, and deployment readiness.
 
-Comment the code for developer understanding.
 
-Generate detailed backend documentation in PDF format.
-
-Offer download of the full code as a ZIP file.
-
-Optionally upload the code to a GitHub repository and deploy it on Render.
-
-The system must ensure a fully automated, intelligent backend development pipeline with options for customization, error recovery, and deployment readiness.
 
 ---
 
@@ -61,8 +52,8 @@ The system must ensure a fully automated, intelligent backend development pipeli
 ### Team Members:  
 -  Aayush gid : [GitHub](https://github.com/aayush598/) / [LinkedIn](https://www.linkedin.com/in/aayush-gid-3767a2221/) : )  
 - Ankit Prajapati : [GitHub](https://github.com/aayush598/) / [LinkedIn](https://www.linkedin.com/in/ankitprajapati04/))  
-- Name 3  
-*(Add links if you want)*
+- Bharat Patel
+- Harsh Nigam
 
 ### Your Approach:  
 - We chose this problem because we saw a clear gap in how dynamic, content-rich applications manage and deliver backend content efficiently. Traditional approaches often lead to overfetching data, slow load times, and rigid APIs.
