@@ -1,8 +1,8 @@
 ![github-submission-banner](https://github.com/user-attachments/assets/a1493b84-e4e2-456e-a791-ce35ee2bcf2f)
 
-# 🚀 Project Title
+# 🚀 Backend Poilet
 
-> A one-line tagline or mission statement for your project.
+> Revolutionizing backend development through AI-powered automation
 
 ---
 
@@ -11,14 +11,45 @@
 Select the problem statement number and title from the official list given in Participant Manual.
 
 **Example:**  
-**Problem Statement 7 – Transform the Future of Rural Commerce**
+**Problem Statement  – AI Agent for Automated Backend Code Generation
+Design an AI-powered agent capable of generating complete backend code based on user-provided inputs. The agent must accept a natural language description of the project, user-specified backend tech stack (initially supporting only Flask), the operating system (Windows, Linux/Ubuntu, or macOS), and the desired folder path for project setup.**
 
 ---
 
 ## 🎯 Objective
 
-What problem does your project solve, and who does it serve?  
-Briefly describe the real-world use case and the value it provides.
+AI Agent for Automated Backend Code Generation
+Design an AI-powered agent capable of generating complete backend code based on user-provided inputs. The agent must accept a natural language description of the project, user-specified backend tech stack (initially supporting only Flask), the operating system (Windows, Linux/Ubuntu, or macOS), and the desired folder path for project setup.
+
+The system should offer two modes of operation:
+
+One-Step Solution – Generates the entire backend project in one go.
+
+Step-by-Step Solution – Builds the project incrementally, allowing the user to review and modify each step.
+
+Once inputs are collected, the agent should:
+
+Generate the folder structure.
+
+Create setup files and generate prompts for code generation using an AI LLM (Qroq).
+
+Create main and test code files, validate them through automated testing and linting.
+
+Handle errors intelligently by re-prompting the LLM up to a user-defined retry limit.
+
+If errors persist, notify the user for manual correction.
+
+Upon successful generation, the agent should:
+
+Comment the code for developer understanding.
+
+Generate detailed backend documentation in PDF format.
+
+Offer download of the full code as a ZIP file.
+
+Optionally upload the code to a GitHub repository and deploy it on Render.
+
+The system must ensure a fully automated, intelligent backend development pipeline with options for customization, error recovery, and deployment readiness.
 
 ---
 
@@ -28,7 +59,7 @@ Briefly describe the real-world use case and the value it provides.
 `Your team name here`
 
 ### Team Members:  
-- Name 1 (GitHub / LinkedIn / Role)  
+-  (GitHub / LinkedIn / Role)  
 - Name 2  
 - Name 3  
 *(Add links if you want)*
