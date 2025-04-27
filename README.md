@@ -14,7 +14,7 @@ Design an AI-powered agent capable of generating complete backend code based on 
 
 ## 🎯 Objective
 
-I Agent for Automated Backend Code Generation
+AI Agent for Automated Backend Code Generation
 
 The AI agent generates complete backend code based on user inputs, including project description, tech stack (initially Flask), OS (Windows, Linux/Ubuntu, macOS), and folder path. It offers two modes:
 
