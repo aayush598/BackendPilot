@@ -10,7 +10,6 @@
 
 Select the problem statement number and title from the official list given in Participant Manual.
 
-**Example:**  
 **Problem Statement  – AI Agent for Automated Backend Code Generation
 Design an AI-powered agent capable of generating complete backend code based on user-provided inputs. The agent must accept a natural language description of the project, user-specified backend tech stack (initially supporting only Flask), the operating system (Windows, Linux/Ubuntu, or macOS), and the desired folder path for project setup.**
 
